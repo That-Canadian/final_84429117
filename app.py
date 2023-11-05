@@ -32,11 +32,11 @@ def hello_world():
         last_request = ['adding:', torrent_link, 'to:', path]
         
         req = dict(
+            urls = torrent_link,
             savepath=path,
             paused='false',
             sequentialDownload='true',
             root_folder='false',
-            urls = torrent_link
         )
         
         s = requests.session()
