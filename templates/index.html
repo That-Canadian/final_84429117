@@ -8,20 +8,20 @@
 
         <div>
             <label for="magnet_link"></label>
-            <textarea id="magnet_link" name="magnet_link" cols="40"
-                rows="5">torrent links (separate with new lines)</textarea>
+            <textarea id="magnet_link" name="magnet_link" cols="40" rows="5"
+                onclick="this.focus();this.select()">torrent links (separate with new lines)</textarea>
         </div>
 
         <div>
-            <input type="radio" id="typeMovie" name="type" value="movie" />
             <label for="typeMovie">Movie</label>
+            <input type="radio" id="typeMovie" name="type" value="movie" checked/>
 
+            <label for="typeTV">TV Show</label>
             <input type="radio" id="typeTV" name="type" value="tv" />
-            <label for="type">TV Show</label>
         </div>
 
         <div>
-            <label for="media_name">name:</label>
+            <label for="media_name">Name:</label>
             <select name="media_name" id="media_name">
                 <option value="custom">custom</option>
 
@@ -32,12 +32,12 @@
         </div>
 
         <div>
-            <label for="custom_name">name:</label>
+            <label for="custom_name">Custom name:</label>
             <input type="text" id="custom_name" name="custom_name">
         </div>
 
         <div>
-            <label for="season">season:</label>
+            <label for="season">Season:</label>
             <input type="number" id="season" name="season">
         </div>
 
