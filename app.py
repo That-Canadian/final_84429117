@@ -44,6 +44,7 @@ def hello_world():
         last_request += [('add', s.post(f'{QBITTORRENT_HOST_ROOT}/api/v2/torrents/add', data=req).text)]
         last_request += [('logout', s.post(f'{QBITTORRENT_HOST_ROOT}/api/v2/auth/logout').text)]
         
+        logging.debug(request.form)
 
     existing_shows = os.listdir(os.path.join(PLEX_ROOT, 'Media', 'TV Shows'))
     existing_movies = os.listdir(os.path.join(PLEX_ROOT, 'Media', 'Movies'))
