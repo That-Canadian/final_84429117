@@ -1,77 +1,89 @@
 <!doctype html>
 
-<title>add torrents to plex</title>
+<head>
+    <title>add torrents to plex</title>
 
-<script type="text/javascript">
-    function hideCustomName(obj) {
-        if (obj.value != 'custom') {
-            document.getElementById('custom_name').style.display = 'none';
-            document.getElementById('custom_name_label').style.display = 'none';
-        } else {
-            document.getElementById('custom_name').style.display = 'block';
-            document.getElementById('custom_name_label').style.display = 'block';
+    <script type="text/javascript">
+        function hideCustomName(obj) {
+            if (obj.value != 'custom') {
+                document.getElementById('custom_name').style.display = 'none';
+                document.getElementById('custom_name_label').style.display = 'none';
+            } else {
+                document.getElementById('custom_name').style.display = 'block';
+                document.getElementById('custom_name_label').style.display = 'block';
+            }
         }
-    }
-    function hideSeason() {
-        if (document.getElementById('typeTV').checked) {
-            document.getElementById('season').style.display = 'block';
-            document.getElementById('season_label').style.display = 'block';
-        } else {
-            document.getElementById('season').style.display = 'none';
-            document.getElementById('season_label').style.display = 'none';
+        function hideSeason() {
+            if (document.getElementById('typeTV').checked) {
+                document.getElementById('season').style.display = 'block';
+                document.getElementById('season_label').style.display = 'block';
+            } else {
+                document.getElementById('season').style.display = 'none';
+                document.getElementById('season_label').style.display = 'none';
+            }
         }
-    }
-</script>
+    </script>
 
-<form method="post">
-    <fieldset>
-        <legend>add a new torrent:</legend>
+    <style>
+        * {
+            color: greenyellow;
+            background: black;
+            border-color: greenyellow;
+        }
+    </style>
+</head>
 
-        <div>
-            <label for="magnet_link"></label>
-            <textarea id="magnet_link" name="magnet_link" cols="40" rows="5"
-                onclick="this.focus();this.select()">torrent links (separate with new lines)</textarea>
-        </div>
+<body style="background-color:black">
+    <form method="post" style="color: greenyellow;">
+        <fieldset>
+            <legend>add a new torrent:</legend>
 
-        <div>
-            <label for="typeMovie">Movie</label>
-            <input type="radio" id="typeMovie" name="type" value="movie" checked onchange="javascript:hideSeason();" />
+            <div>
+                <label for="magnet_link"></label>
+                <textarea id="magnet_link" name="magnet_link" cols="40" rows="5"
+                    onclick="this.focus();this.select()">torrent links (separate with new lines)</textarea>
+            </div>
 
-            <label for="typeTV">TV Show</label>
-            <input type="radio" id="typeTV" name="type" value="tv" onchange="javascript:hideSeason();" />
-        </div>
+            <div>
+                <label for="typeMovie">Movie</label>
+                <input type="radio" id="typeMovie" name="type" value="movie" onchange="javascript:hideSeason();" />
 
-        <div>
-            <label for="media_name">Name:</label>
-            <select name="media_name" id="media_name" onchange="javascript:hideCustomName(this);">
-                <option value="custom">custom</option>
+                <label for="typeTV">TV Show</label>
+                <input type="radio" id="typeTV" name="type" value="tv" onchange="javascript:hideSeason();" checked />
+            </div>
 
-                {%for i in existing_shows%}
-                <option value="{{i}}">{{i}}</option>
-                {%endfor%}
-            </select>
-        </div>
+            <div>
+                <label for="media_name">Name:</label>
+                <select name="media_name" id="media_name" onchange="javascript:hideCustomName(this);">
+                    <option value="custom">custom</option>
 
-        <div>
-            <label id="custom_name_label" for="custom_name">Custom name:</label>
-            <input type="text" id="custom_name" name="custom_name">
-        </div>
+                    {%for i in existing_shows%}
+                    <option value="{{i}}">{{i}}</option>
+                    {%endfor%}
+                </select>
+            </div>
 
-        <div>
-            <label id="season_label" for="season" style="display: none;">Season:</label>
-            <input type="number" id="season" name="season" style="display: none;">
-        </div>
+            <div>
+                <label id="custom_name_label" for="custom_name">Custom name:</label>
+                <input type="text" id="custom_name" name="custom_name">
+            </div>
 
-        <div>
-            <button type="submit">Submit</button>
-        </div>
-    </fieldset>
-</form>
+            <div>
+                <label id="season_label" for="season">Season:</label>
+                <input type="number" id="season" name="season" value="1">
+            </div>
 
-{% if last_request %}
-{%for i in last_request%}
+            <div>
+                <button type="submit">Submit</button>
+            </div>
+        </fieldset>
+    </form>
 
-<h1>{{i}}</h1>
+    {% if last_request %}
+    {%for i in last_request%}
 
-{%endfor%}
-{% endif %}
+    <h1>{{i}}</h1>
+
+    {%endfor%}
+    {% endif %}
+</body>
