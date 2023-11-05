@@ -2,6 +2,27 @@
 
 <title>add torrents to plex</title>
 
+<script type="text/javascript">
+    function hideCustomName(obj) {
+        if (obj.value != 'custom') {
+            document.getElementById('custom_name').style.display = 'none';
+            document.getElementById('custom_name_label').style.display = 'none';
+        } else {
+            document.getElementById('custom_name').style.display = 'block';
+            document.getElementById('custom_name_label').style.display = 'block';
+        }
+    }
+    function hideSeason() {
+        if (document.getElementById('typeTV').checked) {
+            document.getElementById('season').style.display = 'block';
+            document.getElementById('season_label').style.display = 'block';
+        } else {
+            document.getElementById('season').style.display = 'none';
+            document.getElementById('season_label').style.display = 'none';
+        }
+    }
+</script>
+
 <form method="post">
     <fieldset>
         <legend>add a new torrent:</legend>
@@ -14,15 +35,15 @@
 
         <div>
             <label for="typeMovie">Movie</label>
-            <input type="radio" id="typeMovie" name="type" value="movie" checked/>
+            <input type="radio" id="typeMovie" name="type" value="movie" checked onchange="javascript:hideSeason();" />
 
             <label for="typeTV">TV Show</label>
-            <input type="radio" id="typeTV" name="type" value="tv" />
+            <input type="radio" id="typeTV" name="type" value="tv" onchange="javascript:hideSeason();" />
         </div>
 
         <div>
             <label for="media_name">Name:</label>
-            <select name="media_name" id="media_name">
+            <select name="media_name" id="media_name" onchange="javascript:hideCustomName(this);">
                 <option value="custom">custom</option>
 
                 {%for i in existing_shows%}
@@ -32,13 +53,13 @@
         </div>
 
         <div>
-            <label for="custom_name">Custom name:</label>
+            <label id="custom_name_label" for="custom_name">Custom name:</label>
             <input type="text" id="custom_name" name="custom_name">
         </div>
 
         <div>
-            <label for="season">Season:</label>
-            <input type="number" id="season" name="season">
+            <label id="season_label" for="season" style="display: none;">Season:</label>
+            <input type="number" id="season" name="season" style="display: none;">
         </div>
 
         <div>
