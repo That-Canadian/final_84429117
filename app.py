@@ -40,14 +40,9 @@ def hello_world():
         )
         
         s = requests.session()
-        r = s.post(f'{QBITTORRENT_HOST_ROOT}/api/v2/auth/login', data=qbittorrent_creds)
-        print(r.text)
-        last_request += [('login', r.text)]
-        r = s.post(f'{QBITTORRENT_HOST_ROOT}/api/v2/torrents/add', data=req)
-        last_request += [('add', r.text)]
-        r = s.post(f'{QBITTORRENT_HOST_ROOT}/api/v2/auth/logout')
-        print(r.text)
-        last_request += [('logout', r.text)]
+        last_request += [('login', s.post(f'{QBITTORRENT_HOST_ROOT}/api/v2/auth/login', data=qbittorrent_creds).text)]
+        last_request += [('add', s.post(f'{QBITTORRENT_HOST_ROOT}/api/v2/torrents/add', data=req).text)]
+        last_request += [('logout', s.post(f'{QBITTORRENT_HOST_ROOT}/api/v2/auth/logout').text)]
         
 
     existing_shows = os.listdir(os.path.join(PLEX_ROOT, 'Media', 'TV Shows'))
