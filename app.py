@@ -9,7 +9,7 @@ logging.basicConfig(level=logging.DEBUG)
 app = Flask(__name__)
 
 PLEX_ROOT = os.environ['PLEX_ROOT']
-QBITTORRENT_HOST_ROOT = 'https://qbittorrent.agar-agaria.com'
+QBITTORRENT_HOST = 'https://qbittorrent.agar-agaria.com'
 qbittorrent_creds = dict(
     username=os.environ['QBITTORRENT_USERNAME'],
     password=os.environ['QBITTORRENT_PASSWORD']
@@ -40,9 +40,9 @@ def hello_world():
         )
         
         s = requests.session()
-        last_request += [('login', s.post(f'{QBITTORRENT_HOST_ROOT}/api/v2/auth/login', data=qbittorrent_creds).text)]
-        last_request += [('add', s.post(f'{QBITTORRENT_HOST_ROOT}/api/v2/torrents/add', data=req).text)]
-        last_request += [('logout', s.post(f'{QBITTORRENT_HOST_ROOT}/api/v2/auth/logout').text)]
+        last_request += [('login', s.post(f'{QBITTORRENT_HOST}/api/v2/auth/login', data=qbittorrent_creds).text)]
+        last_request += [('add', s.post(f'{QBITTORRENT_HOST}/api/v2/torrents/add', data=req).text)]
+        last_request += [('logout', s.post(f'{QBITTORRENT_HOST}/api/v2/auth/logout').text)]
         
         logging.debug(request.form)
 
