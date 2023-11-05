@@ -15,7 +15,7 @@ qbittorrent_creds = dict(
     password=os.environ['QBITTORRENT_PASSWORD']
     )
 
-@app.route('/', methods=('GET', 'POST'))
+@app.route('/add_new', methods=('GET', 'POST'))
 def hello_world():
     last_request = None
     if request.method == 'POST':
