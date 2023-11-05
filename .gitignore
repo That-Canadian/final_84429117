@@ -3,3 +3,4 @@ __pycache__/
 .secrets
 std.err
 std.out
+.vscode/launch.json
