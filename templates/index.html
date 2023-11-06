@@ -10,25 +10,25 @@
 <body>
     <form method="post">
         <fieldset>
-            <legend>add a new torrent:</legend>
+            <legend>add a new torrent</legend>
 
             <div>
-                <label for="magnet_link"></label>
-                <textarea id="magnet_link" name="magnet_link" cols="40" rows="5"
+                <label></label>
+                <textarea name="magnet_link" cols="40" rows="5"
                     onclick="this.focus();this.select()">torrent links (separate with new lines)</textarea>
             </div>
 
             <div>
-                <label for="typeMovie">Movie</label>
-                <input type="radio" id="typeMovie" name="type" value="movie" onchange="javascript:hideSeason();" />
+                <label>Movie</label>
+                <input type="radio" name="type" value="movie" onchange="javascript:hideSeason();" />
 
-                <label for="typeTV">TV Show</label>
+                <label>TV Show</label>
                 <input type="radio" id="typeTV" name="type" value="tv" onchange="javascript:hideSeason();" checked />
             </div>
 
             <div>
-                <label for="media_name">Name:</label>
-                <select name="media_name" id="media_name" onchange="javascript:hideCustomName(this);">
+                <label>Name:</label>
+                <select name="media_name" onchange="javascript:hideCustomName(this);">
                     <option value="custom">custom</option>
 
                     {%for i in existing_shows%}
@@ -38,13 +38,13 @@
             </div>
 
             <div id="div_custom_name">
-                <label id="custom_name_label" for="custom_name">Custom name:</label>
-                <input type="text" id="custom_name" name="custom_name">
+                <label>Custom name:</label>
+                <input type="text" name="custom_name">
             </div>
 
             <div id="div_season">
-                <label id="season_label" for="season">Season:</label>
-                <input type="number" id="season" name="season" value="1">
+                <label>Season:</label>
+                <input type="number" name="season" value="1">
             </div>
 
             <div>

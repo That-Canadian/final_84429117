@@ -1,6 +1,5 @@
 import os
-from flask import Flask, request, redirect
-from flask import render_template
+from flask import Flask, request, redirect, render_template, url_for
 import requests
 import logging
 
@@ -15,7 +14,7 @@ qbittorrent_creds = dict(
     password=os.environ['QBITTORRENT_PASSWORD']
     )
 
-@app.route('/add_new', methods=('GET', 'POST'))
+@app.route('/', methods=('GET', 'POST'))
 def add_new():
     last_request = None
     if request.method == 'POST':
@@ -49,7 +48,3 @@ def add_new():
     existing_shows = os.listdir(os.path.join(PLEX_ROOT, 'Media', 'TV Shows'))
     existing_movies = os.listdir(os.path.join(PLEX_ROOT, 'Media', 'Movies'))
     return render_template('index.html', existing_shows=existing_shows+existing_movies, last_request=last_request)
-
-@app.route('/')
-def root():
-    return redirect('/add_new')
