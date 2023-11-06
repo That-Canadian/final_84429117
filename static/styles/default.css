@@ -1,0 +1,9 @@
+* {
+    color: greenyellow;
+    background: black;
+    border-color: greenyellow;
+}
+
+.hidden {
+    display: none;
+}

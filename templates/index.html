@@ -1,40 +1,14 @@
 <!doctype html>
 
 <head>
+    <link type="text/css" rel="stylesheet" href="{{ url_for('static',filename='styles/default.css') }}" />
+    <script src="{{ url_for('static',filename='js/index.js') }}"></script>
+
     <title>add torrents to plex</title>
-
-    <script type="text/javascript">
-        function hideCustomName(obj) {
-            if (obj.value != 'custom') {
-                document.getElementById('custom_name').style.display = 'none';
-                document.getElementById('custom_name_label').style.display = 'none';
-            } else {
-                document.getElementById('custom_name').style.display = 'block';
-                document.getElementById('custom_name_label').style.display = 'block';
-            }
-        }
-        function hideSeason() {
-            if (document.getElementById('typeTV').checked) {
-                document.getElementById('season').style.display = 'block';
-                document.getElementById('season_label').style.display = 'block';
-            } else {
-                document.getElementById('season').style.display = 'none';
-                document.getElementById('season_label').style.display = 'none';
-            }
-        }
-    </script>
-
-    <style>
-        * {
-            color: greenyellow;
-            background: black;
-            border-color: greenyellow;
-        }
-    </style>
 </head>
 
-<body style="background-color:black">
-    <form method="post" style="color: greenyellow;">
+<body>
+    <form method="post">
         <fieldset>
             <legend>add a new torrent:</legend>
 
@@ -63,12 +37,12 @@
                 </select>
             </div>
 
-            <div>
+            <div id="div_custom_name">
                 <label id="custom_name_label" for="custom_name">Custom name:</label>
                 <input type="text" id="custom_name" name="custom_name">
             </div>
 
-            <div>
+            <div id="div_season">
                 <label id="season_label" for="season">Season:</label>
                 <input type="number" id="season" name="season" value="1">
             </div>
