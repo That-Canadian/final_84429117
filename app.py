@@ -8,7 +8,7 @@ logging.basicConfig(level=logging.DEBUG)
 app = Flask(__name__)
 
 PLEX_ROOT = os.environ['PLEX_ROOT']
-QBITTORRENT_HOST = 'https://qbittorrent.agar-agaria.com'
+QBITTORRENT_HOST = os.environ['QBITTORRENT_HOST']
 qbittorrent_creds = dict(
     username=os.environ['QBITTORRENT_USERNAME'],
     password=os.environ['QBITTORRENT_PASSWORD']
