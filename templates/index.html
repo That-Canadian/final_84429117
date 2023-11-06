@@ -1,57 +1,69 @@
 <!doctype html>
 
 <head>
+    <!-- Local Sources -->
     <link type="text/css" rel="stylesheet" href="{{ url_for('static',filename='styles/default.css') }}" />
     <script src="{{ url_for('static',filename='js/index.js') }}"></script>
+    <script type="text/javascript">
+        initializeApp({{app_data|tojson}})
+    </script>
 
     <title>add torrents to plex</title>
 </head>
 
 <body>
-    <form method="post">
-        <fieldset>
-            <legend>add a new torrent</legend>
+    <div>
+        <form method="post">
+            <fieldset>
+                <legend>add a new torrent</legend>
 
-            <div>
-                <label></label>
-                <textarea name="magnet_link" cols="40" rows="5"
-                    onclick="this.focus();this.select()">torrent links (separate with new lines)</textarea>
-            </div>
+                <div>
+                    <label></label>
+                    <textarea name="magnet_link" cols="40" rows="5"
+                        onclick="this.focus();this.select()">torrent links (separate with new lines)</textarea>
+                </div>
 
-            <div>
-                <label>Movie</label>
-                <input type="radio" name="type" value="movie" onchange="javascript:hideSeason();" />
+                <div>
+                    <label>
+                        <input name="type" type="radio" value="movie"
+                            onchange="javascript:handleTypeChanged();"/>
+                        <span>Movie</span>
+                    </label>
+                    <label>
+                        <input name="type" type="radio" value="tv" checked
+                            onchange="javascript:handleTypeChanged();"/>
+                        <span>TV Show</span>
+                    </label>
+                    <!-- <label>Movie</label>
+                    <input type="radio" name="type" value="movie" onchange="javascript:hideSeason();" />
 
-                <label>TV Show</label>
-                <input type="radio" id="typeTV" name="type" value="tv" onchange="javascript:hideSeason();" checked />
-            </div>
+                    <label>TV Show</label>
+                    <input type="radio" id="typeTV" name="type" value="tv" onchange="javascript:hideSeason();" checked /> -->
+                </div>
 
-            <div>
-                <label>Name:</label>
-                <select name="media_name" onchange="javascript:hideCustomName(this);">
-                    <option value="custom">custom</option>
+                <div>
+                    <label>Name:</label>
+                    <select id="media_name" name="media_name" 
+                        onchange="javascript:handleMediaNameChange();">
+                    </select>
+                </div>
 
-                    {%for i in existing_shows%}
-                    <option value="{{i}}">{{i}}</option>
-                    {%endfor%}
-                </select>
-            </div>
+                <div id="div_custom_name">
+                    <label>Custom name:</label>
+                    <input type="text" name="custom_name">
+                </div>
 
-            <div id="div_custom_name">
-                <label>Custom name:</label>
-                <input type="text" name="custom_name">
-            </div>
+                <div id="div_season">
+                    <label>Season:</label>
+                    <input type="number" name="season" value="1">
+                </div>
 
-            <div id="div_season">
-                <label>Season:</label>
-                <input type="number" name="season" value="1">
-            </div>
-
-            <div>
-                <button type="submit">Submit</button>
-            </div>
-        </fieldset>
-    </form>
+                <div>
+                    <button type="submit">Submit</button>
+                </div>
+            </fieldset>
+        </form>
+    </div>
 
     {% if last_request %}
     {%for i in last_request%}

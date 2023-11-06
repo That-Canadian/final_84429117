@@ -1,9 +1,15 @@
 import os
-from flask import Flask, request, redirect, render_template, url_for
+from flask import Flask, request, render_template
 import requests
 import logging
 
-logging.basicConfig(level=logging.DEBUG)
+SHOWS_LIST_DEFAULT = ['--DEF--', 'Letterkenny', 'FBOY Island']
+MOVIES_LIST_DEFAULT = ['--DEF--', 'Shrek', 'Some Like it Hot', 'Elf']
+
+app_data = {
+    'existing_shows': SHOWS_LIST_DEFAULT, 
+    'existing_movies': MOVIES_LIST_DEFAULT
+}
 
 app = Flask(__name__)
 
@@ -45,6 +51,15 @@ def add_new():
         
         logging.debug(request.form)
 
-    existing_shows = os.listdir(os.path.join(PLEX_ROOT, 'Media', 'TV Shows'))
-    existing_movies = os.listdir(os.path.join(PLEX_ROOT, 'Media', 'Movies'))
-    return render_template('index.html', existing_shows=existing_shows+existing_movies, last_request=last_request)
+    # TODO: Raise error message to user?
+    try:
+        app_data['existing_shows'] = os.listdir(os.path.join(PLEX_ROOT, 'Media', 'TV Shows'))
+        app_data['existing_movies'] = os.listdir(os.path.join(PLEX_ROOT, 'Media', 'Movies'))
+    except FileNotFoundError:
+        # No-Op, will stay as defaults set at beginning of file
+        None
+    finally:
+        app_data['existing_shows'].sort()
+        app_data['existing_movies'].sort()
+    
+    return render_template('index.html', app_data=app_data, last_request=last_request)
